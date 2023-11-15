@@ -1110,12 +1110,8 @@ class CoulombGenerator:
         if nonbondedMethod is app.PME:
             cell = topdata.getPeriodicBoxVectors()
             box = jnp.array(cell)
-<<<<<<< HEAD
            # self.ethresh = kwargs.get("ethresh", 1e-6)
             self.ethresh = kwargs.get("ethresh", 5e-4) #for qeq calculation
-=======
-            self.ethresh = kwargs.get("ethresh", 1e-5)
->>>>>>> wangxy/v1.0.0-devel
             self.coeff_method = kwargs.get("PmeCoeffMethod", "openmm")
             self.fourier_spacing = kwargs.get("PmeSpacing", 0.1)
             kappa, K1, K2, K3 = setup_ewald_parameters(r_cut, self.ethresh,
@@ -1162,18 +1158,12 @@ class CoulombGenerator:
                 topology_matrix=top_mat if self._use_bcc else None)
 
         coulenergy = coulforce.generate_get_energy()
-<<<<<<< HEAD
-        self.coulforce = coulforce  #for qeq calculation
-        self.coulenergy = coulenergy #for qeq calculation
-        def potential_fn(positions, box, pairs, params):
-=======
 
         has_aux = False
         if "has_aux" in kwargs and kwargs["has_aux"]:
             has_aux = True
 
         def potential_fn(positions, box, pairs, params, aux=None):
->>>>>>> wangxy/v1.0.0-devel
 
             # check whether args passed into potential_fn are jnp.array and differentiable
             # note this check will be optimized away by jit
